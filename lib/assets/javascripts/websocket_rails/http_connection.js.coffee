@@ -17,6 +17,8 @@ class WebSocketRails.HttpConnection extends WebSocketRails.AbstractConnection
     @_url          = "http://#{url}"
     @_conn         = @_createXMLHttpObject()
     @last_pos      = 0
+    @_conn.onerror = => @_conn.abort()
+
     try
       @_conn.onreadystatechange = => @_parse_stream()
       @_conn.addEventListener("load", @on_close, false)
